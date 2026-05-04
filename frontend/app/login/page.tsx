@@ -10,14 +10,25 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Dummy authentication delay
+    setError(null);
+
+    // Hardcoded authorized credentials for MVP
+    const AUTHORIZED_EMAIL = "admin@casahaayak.in";
+    const AUTHORIZED_PASSWORD = "1234";
+
     setTimeout(() => {
-      router.push("/dashboard");
+      if (email === AUTHORIZED_EMAIL && password === AUTHORIZED_PASSWORD) {
+        router.push("/dashboard");
+      } else {
+        setError("Invalid email or password. Please try again.");
+        setLoading(false);
+      }
     }, 1000);
   };
 
@@ -25,14 +36,17 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg">
-            <ShieldCheck className="w-10 h-10" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-500 text-center">Sign in to access your CA workspace</p>
+          <img src="/assets/logo.jpg" alt="Logo" className="h-30 w-auto mb-6" />
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to CA Sahaayak!</h1>
+          <p className="text-gray-500 text-center">Sign in to access your workspace</p>
         </div>
 
         <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8">
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium animate-shake">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700" htmlFor="email">
@@ -43,7 +57,7 @@ export default function LoginPage() {
                 <input
                   id="email"
                   type="email"
-                  placeholder="name@firm.com"
+                  placeholder="name@casahaayak.in"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -82,11 +96,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <input type="checkbox" id="remember" className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <label htmlFor="remember" className="text-sm text-gray-600">Remember me</label>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -99,20 +108,10 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-          <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
-              <ShieldCheck className="w-3 h-3" />
-              Secure Environment
-            </div>
-            <p className="text-sm text-gray-500">
-              Don't have access? <button className="text-blue-600 font-bold hover:underline">Request an Invitation</button>
-            </p>
-          </div>
         </div>
 
         <footer className="mt-12 text-center text-xs text-gray-400">
-          © 2024 CA Operations Portal. Authorized users only. Secure Finance Environment.
+          © 2024 CA Sahaayak. All rights reserved.
         </footer>
       </div>
     </div>

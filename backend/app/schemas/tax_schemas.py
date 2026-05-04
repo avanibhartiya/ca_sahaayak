@@ -15,13 +15,24 @@ class AdvanceTaxResponse(BaseModel):
     advance_tax_payable: float
 
 class CapitalGainsRequest(BaseModel):
-    purchase_price: float
-    sale_price: float
-    purchase_date: date
-    sale_date: date
+    purchase_cost: float
+    purchase_year: str  # e.g. "2010-11"
+    sale_value: float
+    stamp_duty_value: float
+    sale_year: str  # e.g. "2025-26"
     improvement_cost: float = 0.0
-    transfer_expenses: float = 0.0
+    improvement_year: Optional[str] = None
+    expenses: float = 0.0
 
 class CapitalGainsResponse(BaseModel):
-    asset_type: str  # Short Term / Long Term
-    capital_gains_amount: float
+    effective_sale_value: float
+    indexed_purchase: float
+    indexed_improvement: float
+    cii_purchase: float
+    cii_sale: float
+    cii_improvement: float
+    ltcg_old: float
+    tax_old: float
+    ltcg_new: float
+    tax_new: float
+    better_option: str

@@ -1,17 +1,28 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export interface CapitalGainsRequest {
-  purchase_price: number;
-  sale_price: number;
-  purchase_date: string;
-  sale_date: string;
+  purchase_cost: number;
+  purchase_year: string;
+  sale_value: number;
+  stamp_duty_value: number;
+  sale_year: string;
   improvement_cost: number;
-  transfer_expenses: number;
+  improvement_year?: string;
+  expenses: number;
 }
 
 export interface CapitalGainsResponse {
-  asset_type: string;
-  capital_gains_amount: number;
+  effective_sale_value: number;
+  indexed_purchase: number;
+  indexed_improvement: number;
+  cii_purchase: number;
+  cii_sale: number;
+  cii_improvement: number;
+  ltcg_old: number;
+  tax_old: number;
+  ltcg_new: number;
+  tax_new: number;
+  better_option: string;
 }
 
 export async function calculateCapitalGains(data: CapitalGainsRequest): Promise<CapitalGainsResponse> {
