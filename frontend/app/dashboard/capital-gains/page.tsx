@@ -53,13 +53,13 @@ export default function CapitalGainsPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Capital Gains Calculator</h1>
-        <p className="text-gray-500">Compare tax liabilities between Old Method (Indexation) and New Method.</p>
+        <p className="text-gray-500">Compare capital gains under both tax methods and identify the more beneficial option based on your transaction details.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
         {/* Form Section */}
         <div className="lg:col-span-7">
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -175,11 +175,11 @@ export default function CapitalGainsPage() {
                 </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 bg-gray-50/30 flex justify-end">
+            <div className="p-2 border-t border-gray-100 bg-gray-50/30 flex justify-center">
               <button
                 type="submit"
                 disabled={loading}
-                className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 flex items-center gap-2"
+                className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 flex items-center gap-1"
               >
                 {loading ? "Calculating..." : "Run Comparison"}
               </button>

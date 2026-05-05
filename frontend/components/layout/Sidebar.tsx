@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  TrendingUp, 
-  Calculator, 
-  FileText, 
-  History, 
-  User, 
-  Settings, 
+import {
+  LayoutDashboard,
+  TrendingUp,
+  Calculator,
+  FileText,
+  History,
+  User,
+  Settings,
   LogOut,
   ChevronRight,
   CalculatorIcon
@@ -18,11 +18,9 @@ import { cn } from "@/lib/utils/utils";
 
 const menuItems = [
   { name: "Dashboard Home", icon: LayoutDashboard, href: "/dashboard" },
-  { name: "Capital Gains", icon: TrendingUp, href: "/dashboard/capital-gains" },
-  { name: "Advance Tax", icon: Calculator, href: "/dashboard/advance-tax" },
+  { name: "Capital Gains Calculator", icon: TrendingUp, href: "/dashboard/capital-gains" },
+  { name: "Advance Tax Calculator", icon: Calculator, href: "/dashboard/advance-tax" },
   { name: "Basic Calculator", icon: CalculatorIcon, href: "/dashboard/basic-calculator" },
-  { name: "Client Reports", icon: FileText, href: "#" },
-  { name: "Saved Calculations", icon: History, href: "#" },
 ];
 
 const preferencesItems = [

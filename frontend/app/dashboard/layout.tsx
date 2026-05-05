@@ -15,7 +15,7 @@ export default function DashboardLayout({
           {children}
         </main>
         <footer className="mt-auto p-6 border-t border-gray-200 text-center text-xs text-gray-500">
-          © 2024 CA Operations Portal. Authorized users only. Secure Finance Environment.
+          © 2026 CA Sahaayak.
         </footer>
       </div>
     </div>
