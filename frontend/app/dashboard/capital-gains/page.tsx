@@ -15,14 +15,14 @@ const CII_YEARS = [
 
 export default function CapitalGainsPage() {
   const [formData, setFormData] = useState({
-    purchase_cost: 0,
+    purchase_cost: "",
     purchase_year: "2001-02",
-    sale_value: 0,
-    stamp_duty_value: 0,
+    sale_value: "",
+    stamp_duty_value: "",
     sale_year: "2024-25",
-    improvement_cost: 0,
+    improvement_cost: "",
     improvement_year: "2001-02",
-    expenses: 0,
+    expenses: "",
   });
 
   const [result, setResult] = useState<CapitalGainsResponse | null>(null);
@@ -34,7 +34,16 @@ export default function CapitalGainsPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await calculateCapitalGains(formData);
+      // Convert string fields to numbers for the API; empty string → 0
+      const payload = {
+        ...formData,
+        purchase_cost: formData.purchase_cost === "" ? 0 : parseFloat(formData.purchase_cost),
+        sale_value: formData.sale_value === "" ? 0 : parseFloat(formData.sale_value),
+        stamp_duty_value: formData.stamp_duty_value === "" ? 0 : parseFloat(formData.stamp_duty_value),
+        improvement_cost: formData.improvement_cost === "" ? 0 : parseFloat(formData.improvement_cost),
+        expenses: formData.expenses === "" ? 0 : parseFloat(formData.expenses),
+      };
+      const data = await calculateCapitalGains(payload as any);
       setResult(data);
     } catch (err) {
       setError("Failed to calculate gains. Please check the backend connection.");
@@ -45,11 +54,9 @@ export default function CapitalGainsPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "number" ? (parseFloat(value) || 0) : value,
-    }));
+    const { name, value } = e.target;
+    // Store raw string — numbers are parsed only at submit time
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -78,8 +85,9 @@ export default function CapitalGainsPage() {
                     <input
                       type="number"
                       name="purchase_cost"
-                      value={formData.purchase_cost || ""}
+                      value={formData.purchase_cost}
                       onChange={handleChange}
+                      placeholder="0"
                       className="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </div>
@@ -103,8 +111,9 @@ export default function CapitalGainsPage() {
                     <input
                       type="number"
                       name="sale_value"
-                      value={formData.sale_value || ""}
+                      value={formData.sale_value}
                       onChange={handleChange}
+                      placeholder="0"
                       className="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </div>
@@ -116,8 +125,9 @@ export default function CapitalGainsPage() {
                     <input
                       type="number"
                       name="stamp_duty_value"
-                      value={formData.stamp_duty_value || ""}
+                      value={formData.stamp_duty_value}
                       onChange={handleChange}
+                      placeholder="0"
                       className="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </div>
@@ -141,8 +151,9 @@ export default function CapitalGainsPage() {
                     <input
                       type="number"
                       name="expenses"
-                      value={formData.expenses || ""}
+                      value={formData.expenses}
                       onChange={handleChange}
+                      placeholder="0"
                       className="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </div>
@@ -155,8 +166,9 @@ export default function CapitalGainsPage() {
                     <input
                       type="number"
                       name="improvement_cost"
-                      value={formData.improvement_cost || ""}
+                      value={formData.improvement_cost}
                       onChange={handleChange}
+                      placeholder="0"
                       className="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </div>
@@ -166,7 +178,7 @@ export default function CapitalGainsPage() {
                   <select
                     name="improvement_year"
                     value={formData.improvement_year}
-                    disabled={formData.improvement_cost === 0}
+                    disabled={formData.improvement_cost === "" || formData.improvement_cost === "0"}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:opacity-50"
                   >

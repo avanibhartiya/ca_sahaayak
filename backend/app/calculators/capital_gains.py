@@ -7,7 +7,7 @@ CII = {
     "2011-12": 184, "2012-13": 200, "2013-14": 220, "2014-15": 240, "2015-16": 254,
     "2016-17": 264, "2017-18": 272, "2018-19": 280, "2019-20": 289, "2020-21": 301,
     "2021-22": 317, "2022-23": 331, "2023-24": 348, "2024-25": 363, "2025-26": 376,
-    "2026-27": 387
+    "2026-27": 376
 }
 
 def calculate_capital_gains(data: CapitalGainsRequest) -> CapitalGainsResponse:
@@ -16,7 +16,7 @@ def calculate_capital_gains(data: CapitalGainsRequest) -> CapitalGainsResponse:
     
     # Fetching of the CII
     cii_purchase = CII.get(data.purchase_year, 100) # Fallback to 100 if not found
-    cii_sale = CII.get(data.sale_year, 363) # Fallback to current if not found
+    cii_sale = CII.get(data.sale_year, 376) # Fallback to current if not found
     
     indexed_purchase = round(data.purchase_cost * (cii_sale / cii_purchase), 2)
 
