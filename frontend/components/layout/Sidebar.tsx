@@ -12,20 +12,20 @@ import {
   Settings,
   LogOut,
   ChevronRight,
-  CalculatorIcon
+  CalculatorIcon,
+  Clock
 } from "lucide-react";
 import { cn } from "@/lib/utils/utils";
 
 const menuItems = [
   { name: "Dashboard Home", icon: LayoutDashboard, href: "/dashboard" },
   { name: "Capital Gains Calculator", icon: TrendingUp, href: "/dashboard/capital-gains" },
-  { name: "Advance Tax Calculator", icon: Calculator, href: "/dashboard/advance-tax" },
+  { name: "Advance Tax Calculator", icon: Clock, href: "/dashboard/advance-tax" },
   { name: "Basic Calculator", icon: CalculatorIcon, href: "/dashboard/basic-calculator" },
 ];
 
 const preferencesItems = [
   { name: "Profile", icon: User, href: "/dashboard/profile" },
-  { name: "Settings", icon: Settings, href: "#" },
 ];
 
 export default function Sidebar() {
